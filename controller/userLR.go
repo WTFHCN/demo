@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
+
 	"nano/data"
 
 	"nano/model"
@@ -28,7 +28,7 @@ func Register(ctx *gin.Context) {
 		Name:     name,
 		Password: password,
 	}
-	log.Printf("2333")
+
 	DB.Create(&newUser)
 
 
