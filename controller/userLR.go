@@ -1,28 +1,37 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-
+	"log"
 	"nano/data"
-
 	"nano/model"
 	"net/http"
-
 )
 
 func Register(ctx *gin.Context) {
 	DB :=data.GetDB()
-
 	name := ctx.PostForm("name")
-	password := ctx.PostForm("password") // 可设置默认值
-	if len(password) < 6 {
-		ctx.JSON(422, gin.H{
-			"code": 422,
-			"msh":  "密码太短",
+	password := ctx.PostForm("password")
+	fmt.Printf("%s %s \n",name,password)
+	var user model.User
+	DB.Where("name = ?", name).First(&user)
+
+	if user.ID != 0 {
+		ctx.JSON(200, gin.H{
+			"msg":"用户已经存在",
 		})
 		return
 	}
+	if len(password) < 6 {
 
+		ctx.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "密码太短",
+		})
+		return
+	}
+	// 创建用户
 
 	newUser := model.User{
 		Name:     name,
@@ -33,8 +42,7 @@ func Register(ctx *gin.Context) {
 
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"name": name,
-		"password": password,
+		"msg":"注册成功",
 	})
 }
 
@@ -42,20 +50,42 @@ func Login (ctx *gin.Context) {
 	DB :=data.GetDB()
 	name := ctx.PostForm("name")
 	password := ctx.PostForm("password")
+	fmt.Printf("%s %s \n",name,password)
 	var user model.User
 	DB.Where("name = ?", name).First(&user)
+
+	if user.ID == 0 {
+		ctx.JSON(200, gin.H{
+			"msg":"用户不存在",
+
+		})
+
+		return
+	}
 	if user.Password != password {
-		ctx.JSON(402, gin.H{
+		ctx.JSON(200, gin.H{
 			"msg":"登陆失败",
 			"name": name,
-			"password": password,
+
 		})
+		return
+	}
+	token ,err:= ReleaseToken(user)
+	if err !=nil {
+		ctx.JSON(200, gin.H{
+			"msg":"生成token失败",
+		})
+		log.Printf("token error")
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg":"登陆成功",
-		"name": name,
-		"password": password,
+		"date":gin.H{"token":token},
 	})
 }
-
+func Info(ctx *gin.Context)  {
+	user, _:=ctx.Get("user")
+	ctx.JSON(200, gin.H{
+		"user":user,
+	})
+}

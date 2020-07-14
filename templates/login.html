@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="/static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <link href="/static/css/login.css"  rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+<h1>登录/注册</h1>
+<div class="main">
+    <div class="login-top left">
+        <form>
+            <input type="text" name="name" id="RegName" class="name" placeholder="用户名" required="">
+            <input type="text" name="email" id="RegEmail" class="email" placeholder="邮箱" required="">
+            <input type="password" name="password" id="RegPassword1" class="password" placeholder="密码" required="">
+            <input type="password" name="password" id="RegPassword2" class="RegPassword2" placeholder="确认密码" required="">
+            <input type="button" id="Reg" value="注册">
+            <script>
+                $(document).ready(function(){
+                    $("#Reg").click(function(){
+                        var i1=$("#RegName").val();
+                        var i2=$("#RegPassword2").val();
+                        $.post("http://127.0.0.1:8080/api/auth/register",
+                            {
+                                name:i1,
+                                password:i2,
+                            },
+                            function (data) {
+                                alert(data.msg);
+                            },"json");
+                    });
+                });
+            </script>
+        </form>
+    </div>
+
+    <div class="login-top right">
+        <h3>登录</h3>
+        <form>
+            <input type="text" class="name" id="LogName" name="password" placeholder="用户名" required="">
+            <input type="password" class="password1" id="LogPassword" name="password"  placeholder="密码" required="">
+            <input type="checkbox" id="brand" value="">
+            <label for="brand"><span></span> 记住密码</label>
+            <div class="login-bottom">
+                <ul>
+                    <li>
+                        <a href="#">忘记密码?</a>
+                    </li>
+                    <li>
+                        <input type="button" id="Log" value="登录">
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $("#Log").click(function(){
+                        var j1=$("#LogName").val();
+                        var j2=$("#LogPassword").val();
+                        $.post("http://127.0.0.1:8080/api/auth/login",
+                            {
+                                name:j1,
+                                password:j2,
+                            },
+                            function (data) {
+                                alert(data.msg);
+                            },"json");
+                    });
+                });
+            </script>
+        </form>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+</body>
+</html>
