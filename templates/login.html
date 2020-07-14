@@ -4,8 +4,8 @@
     <title>登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="/static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
-    <link href="/static/css/login.css"  rel='stylesheet' type='text/css' />
+    <script src="static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <link href="static/css/login.css"  rel='stylesheet' type='text/css' />
 </head>
 <body>
 
@@ -22,15 +22,20 @@
                 $(document).ready(function(){
                     $("#Reg").click(function(){
                         var i1=$("#RegName").val();
-                        var i2=$("#RegPassword2").val();
-                        $.post("http://127.0.0.1:8080/api/auth/register",
-                            {
-                                name:i1,
-                                password:i2,
-                            },
-                            function (data) {
-                                alert(data.msg);
-                            },"json");
+                        var i2=$("#RegPassword1").val();
+                        var i3=$("#RegPassword2").val();
+                        if(i2===i3){
+                            $.post("/api/auth/register",
+                                {
+                                    name:i1,
+                                    password:i2,
+                                },
+                                function (data) {
+                                    alert(data.msg);
+                                },"json");}
+                        else{
+                            alert("两次密码不一致");
+                        }
                     });
                 });
             </script>
@@ -60,14 +65,21 @@
                     $("#Log").click(function(){
                         var j1=$("#LogName").val();
                         var j2=$("#LogPassword").val();
-                        $.post("http://127.0.0.1:8080/api/auth/login",
+                        $.post("/api/auth/login",
                             {
                                 name:j1,
                                 password:j2,
                             },
                             function (data) {
                                 alert(data.msg);
+
+                                if(data.msg == "登录成功"){
+                                    console.log(123)
+                                    window.location.href="https://www.baidu.com/";
+                                }
+
                             },"json");
+
                     });
                 });
             </script>

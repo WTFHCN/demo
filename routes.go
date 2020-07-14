@@ -12,7 +12,7 @@ func CollectRoute(r *gin.Engine) *gin.Engine  {
 	r.POST("/api/auth/register", controller.Register)
 	r.POST("/api/auth/info", middleware.AuthMiddleware() ,controller.Info)
 	r.GET("/index",controller.ShowIndex)
-	r.GET("/user/lR",controller.ShowLogin)
+	r.GET("/login",controller.ShowLogin)
 	v1Group := r.Group("v1")
 	{
 		v1Group.POST("/todo", controller.Getdolist)
