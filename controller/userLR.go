@@ -64,7 +64,7 @@ func Login (ctx *gin.Context) {
 	}
 	if user.Password != password {
 		ctx.JSON(200, gin.H{
-			"msg":"登陆失败",
+			"msg":"登录失败",
 			"name": name,
 
 		})
@@ -79,7 +79,7 @@ func Login (ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg":"登陆成功",
+		"msg":"登录成功",
 		"date":gin.H{"token":token},
 	})
 }

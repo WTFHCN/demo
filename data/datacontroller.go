@@ -34,6 +34,8 @@ func InitDB()*gorm.DB{
 	}
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Todo {})
+	db.AutoMigrate(&model.Webcount {})
+	db.AutoMigrate(&model.Allweb{})
 	//log.Printf("2333")
 
 	DB=db

@@ -8,11 +8,19 @@ import (
 
 func CollectRoute(r *gin.Engine) *gin.Engine  {
 
-	r.POST("/api/auth/login", controller.Login)
-	r.POST("/api/auth/register", controller.Register)
-	r.POST("/api/auth/info", middleware.AuthMiddleware() ,controller.Info)
+	userGroup := r.Group("/api/auth")
+	{
+		userGroup.POST("/login", controller.Login)
+		userGroup.POST("/register", controller.Register)
+		userGroup.POST("/info", middleware.AuthMiddleware() ,controller.Info)
+		userGroup.POST("/postWeb", controller.PostWebsite)
+		userGroup.POST("/getWeb", controller.GetUserWebsite)
+	}
+
 	r.GET("/index",controller.ShowIndex)
 	r.GET("/login",controller.ShowLogin)
+
+	r.GET("/api/index/show", controller.ShowWebsite)
 	v1Group := r.Group("v1")
 	{
 		v1Group.POST("/todo", controller.Getdolist)
