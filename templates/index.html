@@ -117,10 +117,10 @@
                         </div>
                         <img src={{$user.Image}} class="img-responsive" alt="" />
                     </a>
-                    <el-button id="app" @click="visible = true">点个赞吧</el-button>
+                    <button class="app" @click="visible = true">点个赞吧</button>
                     <script>
                         $(document).ready(function(){
-                            $("#app").click(function(){
+                            $(".app").click(function(){
                                 $.post("/api/auth/addWeb",
                                     {
                                         website:{{$user.Website}},
@@ -131,7 +131,6 @@
                             });
                         });
                     </script>
-
 
                     <img id="go" src="static/images/dianzang.png" class="img-responsive" style="width: 15%;float: left"  alt="" />
                     <h1 style="float:right;font-size: 20px">{{$user.Num}}</h1>
@@ -482,9 +481,12 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script>
     new Vue({
-        el: '#app',
+        el: '.app',
         data: function() {
             return { visible: false }
         }
