@@ -7,6 +7,7 @@ import (
 	"nano/model"
 )
 var DB *gorm.DB
+
 func InitDB()*gorm.DB{
 
 	//dirvername :="mysql"
@@ -36,7 +37,10 @@ func InitDB()*gorm.DB{
 	db.AutoMigrate(&model.Todo {})
 	db.AutoMigrate(&model.Webcount {})
 	db.AutoMigrate(&model.Allweb{})
-	//log.Printf("2333")
+	db.AutoMigrate(&model.Webimage{})
+
+	db.Create(&model.Webimage{Website:"http://www.airpano.com/?n=10&sort_by=&page=1" ,Image:"2016风景.png"})
+	db.Create(&model.Webimage{Website:"http://www.airpano.com/?n=10&sort_by=&page=1" ,Image:"2018表情包"})
 
 	DB=db
 	return DB

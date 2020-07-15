@@ -25,3 +25,9 @@ type Allweb struct {
 	Website string `gorm:"type:varchar(100);not null;unique"`
 	Num int     `gorm:"AUTO_INCREMENT"`
 }
+type Webimage struct {
+	gorm.Model
+
+	Website string `gorm:"type:varchar(100);not null;unique"`
+	Image string     `gorm:"type:varchar(100);not null"`
+}
