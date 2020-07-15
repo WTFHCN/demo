@@ -7,6 +7,24 @@
     <link rel="stylesheet" type="text/css" href="static/css/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css" />
     <script src="static/js/jquery-3.4.1.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(document).ready(function(){
+            $.post("/api/auth/getWeb",
+                {
+                    name:"HCN",
+                },
+                function (data) {
+                    var txt01="<br><hr/>";
+                    var txt02="<br>";
+                    for(var i=0;i<data.length;i++){
+                        console.log(data[i])
+                        console.log(data[i].Introduction)
+                        $("#box").append(txt02,"推荐网站:"+data[i].Website,txt02,txt02,"简介:"+data[i].Introduction,txt01);
+                        //这里的element是页面dom事件中onfocus="getValue(this) 中的this
+                    }
+                },"json")
+        });
+    </script>
 
 
 
@@ -76,11 +94,29 @@
     <form>
         网址：<input type="text" id="web" class="name" style="width: 80%" required="">
         <br><br>
-        标题：<input type="text" id="tit" class="name" style="width: 80%" required="">
-        <br><br>
         简介：<input type="text" id="int" class="name" style="width: 80%" required="">
         <br><br>
-        <input type="button" value="收藏" onclick="geton()">
+        <input type="button" id="col" value="收藏">
+        <script>
+            $(document).ready(function(){
+                $("#col").click(function(){
+                    var i1=$("#web").val();
+                    var i2=$("#int").val();
+                    $.post("/api/auth/postWeb",
+                        {
+                            name:"HCN",
+                            website:i1,
+                            introduction:i2,
+                        },
+                        function (data) {
+                            var txt4="<br><hr/>";
+                            var txt0="<br>";
+                            $("#box").append(txt0,data.msg,txt4);
+                            (data.msg)
+                        },"json")
+                });
+            });
+        </script>
     </form>
 </div>
 <script>
@@ -98,26 +134,22 @@
 
     });
 </script>
-<script>
+<!--<script>
     function geton()
     {
 
         var txt1=document.createElement("p");
         txt1.innerHTML=$("#web").val();
-        var txt2=document.createElement("p");
-        txt2.innerHTML=$("#tit").val();
         var txt3=document.createElement("p");
         txt3.innerHTML=$("#int").val();
         txt1.prepend("网址： ");
-        txt2.prepend("标题： ");
         txt3.prepend("简介： ");
         var txt4="<br><hr/>";
         var txt0="<br>";
-        $.post("\api\)
-        $("#box").append(txt0,txt1, txt2, txt3,txt4);
+        $("#box").append(txt0,txt1,  txt3,txt4);
 
     }
-</script>
+</script>-->
 <div id="backGround"></div>
 
 </body>
