@@ -54,7 +54,7 @@ func ShowLogin(c *gin.Context)  {
 	c.HTML(http.StatusOK,"login.html",nil)
 }
 func Showuser(c *gin.Context) {
-	c.HTML(http.StatusOK,"share.html",nil)
+	c.HTML(http.StatusOK,"user.html",nil)
 }
 func ShowWeblist(c *gin.Context)  {
 	c.HTML(http.StatusOK,"checklist.html",nil)
