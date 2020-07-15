@@ -54,11 +54,7 @@ func ShowWebsite(c *gin.Context)  {
 	var web []model.Allweb
 
 	DB.Find(&web)
-	//fmt.Printf("%s\n",web[0].Website)
-	if len(web)==0 {
-		c.JSON(402,gin.H{"msg":"没有收藏过一个网页"})
-		return
-	}
+
 	c.JSON(http.StatusOK,web)
 
 

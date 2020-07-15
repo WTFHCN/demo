@@ -18,6 +18,7 @@ func Getdolist(c *gin.Context)  {
 		}
 
 }
+
 func Showlist(c *gin.Context)  {
 	DB :=data.GetDB()
 	var todoList []model.Todo
@@ -27,6 +28,7 @@ func Showlist(c *gin.Context)  {
 		c.JSON(http.StatusOK, todoList)
 	}
 }
+
 func Dellist(c *gin.Context)  {
 	DB :=data.GetDB()
 	id, ok := c.Params.Get("id")

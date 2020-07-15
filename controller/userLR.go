@@ -50,16 +50,14 @@ func Login (ctx *gin.Context) {
 	DB :=data.GetDB()
 	name := ctx.PostForm("name")
 	password := ctx.PostForm("password")
-	fmt.Printf("%s %s \n",name,password)
+
 	var user model.User
 	DB.Where("name = ?", name).First(&user)
-
+	//查询用户密码，此处没有加入加密系统，未来可以加入
 	if user.ID == 0 {
 		ctx.JSON(200, gin.H{
 			"msg":"用户不存在",
-
 		})
-
 		return
 	}
 	if user.Password != password {

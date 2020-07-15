@@ -21,7 +21,7 @@ func ReleaseToken(user model.User) (string, error) {
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(), //过期时间
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "NaCN.toch",
+			Issuer:    "NaCN.toch", //发放人
 			Subject:   "user token",
 		},
 	}

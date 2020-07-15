@@ -24,13 +24,17 @@ func min(a int, b int ) int   {
 func ShowIndex(c *gin.Context)  {
 	DB := data.GetDB()
 	var web []model.Allweb
-
 	DB.Find(&web)
 	//fmt.Printf("%s\n",web[0].Website)
 
+	//排序
+	less := func(i, j int) bool {
+		return web[i].Num > web[j].Num
+	}
+	sort.Slice(web,less)
 
+	//此处取点赞数最大的6个网站
 	var aweb []webInfo
-
 	for  i:=0 ;i<min(6,len(web));i++ {
 		if web[i].Num>0 {
 			var o model.Webimage
@@ -42,11 +46,7 @@ func ShowIndex(c *gin.Context)  {
 			}
 		}
 	}
-	less := func(i, j int) bool {
-		return aweb[i].Num > aweb[j].Num
-	}
-	sort.Slice(aweb,less)
-
+	fmt.Printf("%v\n",aweb)
 	c.HTML(http.StatusOK,"index.html",aweb)
 }
 func ShowLogin(c *gin.Context)  {
