@@ -40,3 +40,22 @@ func Dellist(c *gin.Context)  {
 		c.JSON(http.StatusOK, gin.H{id:"deleted"})
 	}
 }
+func Doinglist(c *gin.Context)  {
+	DB:=data.GetDB()
+	id, ok := c.Params.Get("id")
+	if !ok {
+		c.JSON(http.StatusOK, gin.H{"error": "无效的id"})
+		return
+	}
+	var todo model.Todo
+	if err := DB.Where("id=?", id).First(&todo).Error; err!=nil{
+		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
+		return
+	}
+	c.BindJSON(&todo)
+	if err := DB.Save(&todo).Error; err!= nil{
+		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
+	}else{
+		c.JSON(http.StatusOK, todo)
+	}
+}

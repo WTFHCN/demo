@@ -16,16 +16,17 @@ func CollectRoute(r *gin.Engine) *gin.Engine  {
 		userGroup.POST("/postWeb", controller.PostWebsite)
 		userGroup.POST("/getWeb", controller.GetUserWebsite)
 	}
-
+	r.GET("/user/tool",controller.ShowWeblist)
 	r.GET("/index",controller.ShowIndex)
 	r.GET("/login",controller.ShowLogin)
-
+	r.GET("/user",controller.Showuser)
 	r.GET("/api/index/show", controller.ShowWebsite)
 	v1Group := r.Group("v1")
 	{
 		v1Group.POST("/todo", controller.Getdolist)
 		v1Group.GET("/todo", controller.Showlist)
 		v1Group.DELETE("/todo/:id",controller.Dellist)
+		v1Group.PUT("/todo/:id",  controller.Doinglist)
 	}
 
 	return r

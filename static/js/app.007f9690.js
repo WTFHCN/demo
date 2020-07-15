@@ -136,7 +136,7 @@
                     }
                 }, [n("div", {
                     staticClass: "grid-content"
-                }, [n("el-divider", [n("h1", [e._v("易藏代办列表")])]), n("TodoList")], 1)])], 1)], 1), n("el-footer", [e._v("q1mi出品 Go学习交流QQ群：645090316")])], 1)
+                }, [n("el-divider", [n("h1", [e._v("易藏代办列表")])]), n("TodoList")], 1)])], 1)], 1), n("el-footer", [e._v("欢迎使用代办清单功能")])], 1)
             },
             d = [],
             f = function () {
