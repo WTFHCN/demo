@@ -36,7 +36,7 @@ func ShowIndex(c *gin.Context)  {
 	for  i:=0 ;i<min(6,len(web));i++ {
 		if web[i].Num>0 {
 			var o model.Webimage
-			DB.Debug().Where("website = ?",web[i].Website).First(&o)
+			DB.Debug().Where("website = ?",web[i].Website+"%").First(&o)
 
 			if o.ID!=0 {
 				aweb = append(aweb, webInfo{web[i].Website,"static/images/"+o.Image, web[i].Num})
