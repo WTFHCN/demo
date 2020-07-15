@@ -46,7 +46,7 @@ func ShowIndex(c *gin.Context)  {
 			}
 		}
 	}
-	fmt.Printf("%v\n",aweb)
+
 	c.HTML(http.StatusOK,"index.html",aweb)
 }
 func ShowLogin(c *gin.Context)  {

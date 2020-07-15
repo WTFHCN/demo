@@ -87,3 +87,4 @@ func Info(ctx *gin.Context)  {
 		"user":user,
 	})
 }
+

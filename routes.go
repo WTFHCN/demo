@@ -16,6 +16,7 @@ func CollectRoute(r *gin.Engine) *gin.Engine  {
 		userGroup.POST("/info", middleware.AuthMiddleware() ,controller.Info)
 		userGroup.POST("/postWeb", controller.PostWebsite)
 		userGroup.POST("/getWeb", controller.GetUserWebsite)
+		userGroup.POST("/addWeb", controller.AddWeb)
 	}
 	//此处控制页面显示
 	r.GET("/user/tool",controller.ShowWeblist)

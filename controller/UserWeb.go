@@ -25,7 +25,7 @@ func PostWebsite(c *gin.Context)  {
 	}
 	DB.Create(&u)
 	var o model.Allweb
-	DB.Debug().Where("website = ?",website).First(&o)
+	DB.Where("website = ?",website).First(&o)
 
 	if o.ID == 0{
 		DB.Create(&model.Allweb{Website: website,Num: 1})
@@ -47,7 +47,6 @@ func GetUserWebsite(c *gin.Context)  {
 
 	c.JSON(http.StatusOK,web)
 
-
 }
 func ShowWebsite(c *gin.Context)  {
 	DB := data.GetDB()
@@ -58,4 +57,14 @@ func ShowWebsite(c *gin.Context)  {
 	c.JSON(http.StatusOK,web)
 
 
+}
+func AddWeb(c*gin.Context)  {
+	DB:=data.GetDB()
+	website:= c.PostForm("website")
+	var o model.Allweb
+	DB.Debug().Where("website = ?",website).First(&o)
+	o.Num=o.Num+1
+	//fmt.Printf("%d\n",o.Num)
+	DB.Save(&o)
+	c.JSON(http.StatusOK,gin.H{"msg":"点赞成功"})
 }
