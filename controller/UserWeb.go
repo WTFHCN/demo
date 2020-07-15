@@ -12,8 +12,8 @@ func PostWebsite(c *gin.Context)  {
 	name := c.PostForm("name")
 	website := c.PostForm("website")
 	introduction := c.PostForm("introduction")
-	if website == " "{
-		c.JSON(http.StatusOK,gin.H{"msg":"请输入网站"})
+	if website == " " ||introduction == " "{
+		c.JSON(http.StatusOK,gin.H{"msg":"输入格式有问题"})
 		return
 	}
 
@@ -43,10 +43,7 @@ func GetUserWebsite(c *gin.Context)  {
 	var web []model.Webcount
 	name := c.PostForm("name")
 	DB.Where("name = ?", name).Find(&web)
-	if web[0].ID == 0 {
-		c.JSON(402,gin.H{"msg":"没有收藏过一个网页"})
-		return
-	}
+
 
 	c.JSON(http.StatusOK,web)
 
